@@ -7,6 +7,7 @@ interface SimulationState {
   data: SimulationResult | null;
   isLoading: boolean;
   clmmUnavailable: boolean;
+  aggregatorUnavailable: boolean;
 }
 
 export function useSimulation() {
@@ -14,6 +15,7 @@ export function useSimulation() {
     data: null,
     isLoading: false,
     clmmUnavailable: false,
+    aggregatorUnavailable: false,
   });
   const abortRef = useRef<AbortController | null>(null);
 
@@ -38,14 +40,19 @@ export function useSimulation() {
         const json = await res.json();
 
         if ('clmmUnavailable' in json) {
-          setState({ data: null, isLoading: false, clmmUnavailable: true });
+          setState({ data: null, isLoading: false, clmmUnavailable: true, aggregatorUnavailable: false });
           return;
         }
 
-        setState({ data: json as SimulationResult, isLoading: false, clmmUnavailable: false });
+        if ('aggregatorUnavailable' in json) {
+          setState({ data: null, isLoading: false, clmmUnavailable: false, aggregatorUnavailable: true });
+          return;
+        }
+
+        setState({ data: json as SimulationResult, isLoading: false, clmmUnavailable: false, aggregatorUnavailable: false });
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
-        setState((s) => ({ ...s, isLoading: false }));
+        setState((s) => ({ ...s, isLoading: false, aggregatorUnavailable: false }));
       }
     },
     []
