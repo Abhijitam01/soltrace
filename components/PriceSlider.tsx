@@ -19,7 +19,7 @@ function clientSidePnl(diffs: AccountDiff[], multiplier: number): number {
   const inputAmount = Math.abs(outbound[0].delta);
   const outputAmount = Math.abs(inbound[0].delta);
   const reserveIn = inputAmount * 10;
-  const reserveOut = outputAmount * 10;
+  const reserveOut = outputAmount * (10 + 1);
   const scaledInput = inputAmount * multiplier;
   const newOutput = (reserveOut * scaledInput) / (reserveIn + scaledInput);
   const raw = newOutput - outputAmount;
@@ -43,6 +43,11 @@ export function PriceSlider({ value, onChange, diffs }: PriceSliderProps) {
         step="0.01"
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); onChange(Math.max(0.1, parseFloat((value - 0.01).toFixed(2)))); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); onChange(Math.min(3.0, parseFloat((value + 0.01).toFixed(2)))); }
+          if (e.key === 'Home') { e.preventDefault(); onChange(1.0); }
+        }}
         aria-label={`Price multiplier: ${value.toFixed(2)}x`}
         className="w-full slider"
       />
