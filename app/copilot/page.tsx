@@ -3,19 +3,8 @@
 import { useState, FormEvent } from 'react';
 import { AccountDiffTable } from '@/components/AccountDiffTable';
 import { StreamingPanel } from '@/components/StreamingPanel';
-import type { DecodedTransaction, AccountDiff } from '@/lib/types';
-
-function parseBase64Tx(base64: string): { diffs: AccountDiff[]; programIds: string[] } | null {
-  try {
-    const bytes = Buffer.from(base64, 'base64');
-    // Minimal parsing: extract account count from versioned tx header
-    // This is a simplified placeholder — full IDL parsing requires @solana/web3.js in browser context
-    void bytes;
-    return null;
-  } catch {
-    return null;
-  }
-}
+import { RiskBadge } from '@/components/ui/RiskBadge';
+import type { DecodedTransaction } from '@/lib/types';
 
 export default function CopilotPage() {
   const [rawTx, setRawTx] = useState('');
@@ -95,13 +84,24 @@ export default function CopilotPage() {
       </form>
 
       {(decodedTx || isLoading) && (
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="lg:w-1/2">
-            <h2 className="text-sm font-medium text-slate-400 mb-2">Account Changes</h2>
-            <AccountDiffTable diffs={diffs} isLoading={isLoading} />
-          </div>
-          <div className="lg:w-1/2">
-            <StreamingPanel decodedTx={decodedTx} />
+        <div className="space-y-4">
+          {decodedTx && (
+            <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700">
+              <RiskBadge score={decodedTx.riskScore} />
+              <span className="text-sm text-slate-300">{decodedTx.summary}</span>
+            </div>
+          )}
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="lg:w-1/2">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                Account Changes
+              </h2>
+              <AccountDiffTable diffs={diffs} isLoading={isLoading} />
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">AI Analysis</h2>
+              <StreamingPanel decodedTx={decodedTx} />
+            </div>
           </div>
         </div>
       )}

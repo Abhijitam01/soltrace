@@ -1,4 +1,4 @@
-import { SkeletonRows } from './SkeletonRows';
+import { SkeletonRows } from './ui/SkeletonRows';
 import type { AccountDiff } from '@/lib/types';
 
 interface AccountDiffTableProps {
@@ -54,9 +54,9 @@ export function AccountDiffTable({ diffs, isLoading }: AccountDiffTableProps) {
                     <span
                       className={
                         diff.delta > 0
-                          ? 'text-[#22c55e]'
+                          ? 'text-green-500'
                           : diff.delta < 0
-                          ? 'text-[#ef4444]'
+                          ? 'text-red-500'
                           : 'text-slate-400'
                       }
                     >

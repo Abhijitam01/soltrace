@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useCompletion } from 'ai/react';
-import { RiskBadge } from './RiskBadge';
+import { RiskBadge } from './ui/RiskBadge';
 import type { DecodedTransaction } from '@/lib/types';
 
 interface StreamingPanelProps {
@@ -16,6 +16,7 @@ const SUMMARY_RE = /"summary":\s*"((?:[^"\\]|\\.)*)"/;
 export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps) {
   const [riskScore, setRiskScore] = useState<number | null>(null);
   const [summary, setSummary] = useState('');
+  const [analysisError, setAnalysisError] = useState(false);
   const pendingTx = useRef<DecodedTransaction | null>(null);
 
   const { completion, isLoading, complete, stop } = useCompletion({
@@ -27,11 +28,15 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
         complete('', { body: { decodedTx: tx } });
       }
     },
+    onError: () => {
+      setAnalysisError(true);
+    },
   });
 
   useEffect(() => {
     if (!decodedTx) return;
 
+    setAnalysisError(false);
     if (isLoading) {
       pendingTx.current = decodedTx;
       stop();
@@ -70,15 +75,13 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
       aria-live="polite"
       className="rounded-lg border border-slate-700 bg-slate-800/50 p-4 overflow-y-auto max-h-[60vh]"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-medium text-slate-400">AI Analysis</h2>
-        {sliderActive && isLoading && (
-          <span className="text-xs text-slate-500 animate-pulse">Updating analysis...</span>
-        )}
-        {isLoading && !sliderActive && (
-          <span className="text-xs text-slate-500 animate-pulse">Analyzing...</span>
-        )}
-      </div>
+      {(isLoading) && (
+        <div className="mb-3">
+          <span className="text-xs text-slate-500 animate-pulse">
+            {sliderActive ? 'Updating analysis...' : 'Analyzing...'}
+          </span>
+        </div>
+      )}
 
       {riskScore !== null && (
         <div className="mb-4">
@@ -88,6 +91,8 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
 
       {summary ? (
         <p className="text-slate-300 text-sm leading-relaxed">{summary}</p>
+      ) : analysisError ? (
+        <p className="text-slate-500 text-sm">Analysis unavailable — check your API key configuration.</p>
       ) : isLoading ? (
         <div className="space-y-2">
           <div className="h-3 bg-slate-700/50 rounded animate-pulse w-full" />
