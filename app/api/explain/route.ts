@@ -1,7 +1,7 @@
 export const runtime = 'edge';
 
 import { streamText } from 'ai';
-import { createAnthropic } from '@ai-sdk/anthropic';
+import { createGroq } from '@ai-sdk/groq';
 import type { DecodedTransaction } from '@/lib/types';
 
 const SYSTEM_PROMPT = `You are a Solana transaction analyzer. Given decoded transaction data, return ONLY valid JSON.
@@ -33,9 +33,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const anthropic = createAnthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
+  const groq = createGroq({ apiKey: process.env.GROQ_API_KEY });
 
   const userMessage = JSON.stringify({
     signature: decodedTx.signature,
@@ -46,7 +44,7 @@ export async function POST(request: Request) {
   });
 
   const result = streamText({
-    model: anthropic('claude-haiku-4-5-20251001'),
+    model: groq('llama-3.3-70b-versatile'),
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],
     abortSignal: AbortSignal.timeout(30000),
