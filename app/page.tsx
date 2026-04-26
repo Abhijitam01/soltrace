@@ -5,11 +5,11 @@ import { SignatureInputForm } from '@/components/SignatureInputForm';
 
 const DEMO_TXS = [
   {
-    sig: '5KtPn1GNKMgkKg3Yrm4WJDExZ1GhHtW5MLbN5yUuXfK8DTmLtbqoL1WX8n1oeQ3FbCHhQE5q5Cgh3xVXAp8xMo',
+    sig: '3PWxBuY7GNm9j3kESVyu2udR5dqomegYHWHwHvftgkM7ST9ZnuEstWdxRJbfhNUiM7twQpCc5yyzKfNtfytvxjdj',
     label: 'Raydium swap',
   },
   {
-    sig: '3Jm2Tir2MBMR5vEd1kBXbzFaFmFBYzFoK4Nqv8XZUrNfpNEPaE4N7oJKP4xFHSUJXb5JmViU7bG35bFcJB37BPc',
+    sig: '2WFhQhbycYbGnHJZxiFsPKBAJgodTw82F7ZBYoaxBbfWsqbcHpfivSAuP2kBHtgU363bj5XUDeNSAqu7NwJXD7Hj',
     label: 'Jupiter route',
   },
 ];
@@ -59,9 +59,11 @@ export default function HomePage() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-white mb-3">SolTrace</h1>
-        <p className="text-slate-400">
-          Decode any Solana transaction — then replay it at a different price to see what would have happened.
+        <h1 className="text-2xl font-semibold text-white mb-3">
+          Decode any Solana transaction
+        </h1>
+        <p className="text-slate-400 text-sm">
+          Paste a signature to see account changes, then drag the price slider to replay at a different rate.
         </p>
       </div>
 
