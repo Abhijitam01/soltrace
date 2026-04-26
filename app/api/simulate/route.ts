@@ -40,6 +40,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ clmmUnavailable: true });
   }
 
+  if (ammType === 'aggregator') {
+    return NextResponse.json({ aggregatorUnavailable: true });
+  }
+
   try {
     const result = simulateConstantProduct(diffs, multiplier);
     return NextResponse.json(result);
