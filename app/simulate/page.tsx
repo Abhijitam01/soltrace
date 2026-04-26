@@ -54,12 +54,12 @@ export default function SimulatePage() {
           <Link href="/" className="text-sm text-slate-400 hover:text-slate-300 mb-1 block">
             ← Analyze another
           </Link>
-          <h1
-            className="font-mono text-sm text-slate-300"
-            title={sig}
-          >
+          <h1 className="font-mono text-sm text-slate-300" title={sig}>
             {truncatedSig}
           </h1>
+          {data?.summary && (
+            <p className="text-sm text-slate-400 mt-0.5">{data.summary}</p>
+          )}
         </div>
         <button
           onClick={handleShare}
@@ -78,18 +78,18 @@ export default function SimulatePage() {
 
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="lg:w-2/5">
-          <h2 className="text-sm font-medium text-slate-400 mb-2">Account Changes</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Account Changes</h2>
           <AccountDiffTable diffs={data?.diffs ?? null} isLoading={isLoading} />
-          {data && (
-            <p className="mt-2 text-xs text-slate-500">
-              {data.summary}
+          {data?.ammType === 'aggregator' && (
+            <p className="mt-2 text-xs text-amber-500/80">
+              Multi-pool aggregator — price simulation unavailable
             </p>
           )}
         </div>
 
         {showSlider && (
           <div className="lg:w-1/5">
-            <h2 className="text-sm font-medium text-slate-400 mb-2">Price Scenario</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Price Scenario</h2>
             <div className="rounded-lg border border-slate-700 bg-slate-800/50 px-4">
               <PriceSlider
                 value={multiplier}
@@ -101,6 +101,7 @@ export default function SimulatePage() {
         )}
 
         <div className={showSlider ? 'lg:w-2/5' : 'lg:flex-1'}>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">AI Analysis</h2>
           <StreamingPanel decodedTx={explainTx} sliderActive={sliderActive} />
         </div>
       </div>
