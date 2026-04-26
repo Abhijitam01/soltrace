@@ -4,6 +4,9 @@ import path from 'path';
 export default defineConfig({
   test: {
     environment: 'node',
+    environmentMatchGlobs: [
+      ['tests/lib/hooks.test.ts', 'jsdom'],
+    ],
     include: ['tests/lib/**/*.test.ts'],
     globals: false,
   },
