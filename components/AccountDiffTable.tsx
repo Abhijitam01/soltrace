@@ -23,9 +23,9 @@ export function AccountDiffTable({ diffs, isLoading }: AccountDiffTableProps) {
       <table className="w-full text-sm">
         <thead className="sticky top-0 bg-slate-800 border-b border-slate-700">
           <tr>
-            <th className="text-left py-2 px-3 text-slate-400 font-medium">Address</th>
-            <th className="text-left py-2 px-3 text-slate-400 font-medium">Token</th>
-            <th className="text-right py-2 px-3 text-slate-400 font-medium">Delta</th>
+            <th scope="col" className="text-left py-2 px-3 text-slate-400 font-medium">Address</th>
+            <th scope="col" className="text-left py-2 px-3 text-slate-400 font-medium">Token</th>
+            <th scope="col" className="text-right py-2 px-3 text-slate-400 font-medium">Delta</th>
           </tr>
         </thead>
         {isLoading ? (
