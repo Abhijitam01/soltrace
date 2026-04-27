@@ -8,11 +8,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'solana-purple': '#9945FF',
-        'bg-dark': '#0f172a',
+        cream: '#fffefb',
+        'cream-off': '#fffdf9',
+        'warm-black': '#201515',
+        charcoal: '#36342e',
+        'warm-gray': '#939084',
+        sand: '#c5c0b1',
+        'mid-warm': '#b5b2aa',
+        'light-sand': '#eceae3',
+        accent: '#ff4f00',
+        'accent-hover': '#e64500',
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['var(--font-inter)', 'Inter', 'Helvetica', 'Arial', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
     },
   },

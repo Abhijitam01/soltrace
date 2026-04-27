@@ -32,8 +32,8 @@ export function PriceSlider({ value, onChange, diffs }: PriceSliderProps) {
   return (
     <div className="flex flex-col gap-4 py-4">
       <div className="text-center">
-        <span className="text-2xl font-bold text-white">{value.toFixed(2)}x</span>
-        <p className="text-xs text-slate-400 mt-1">price multiplier</p>
+        <span className="text-2xl font-semibold text-warm-black">{value.toFixed(2)}x</span>
+        <p className="text-xs text-warm-gray mt-1">price multiplier</p>
       </div>
 
       <input
@@ -44,25 +44,34 @@ export function PriceSlider({ value, onChange, diffs }: PriceSliderProps) {
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
         onKeyDown={(e) => {
-          if (e.key === 'ArrowLeft') { e.preventDefault(); onChange(Math.max(0.1, parseFloat((value - 0.01).toFixed(2)))); }
-          if (e.key === 'ArrowRight') { e.preventDefault(); onChange(Math.min(3.0, parseFloat((value + 0.01).toFixed(2)))); }
-          if (e.key === 'Home') { e.preventDefault(); onChange(1.0); }
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            onChange(Math.max(0.1, parseFloat((value - 0.01).toFixed(2))));
+          }
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            onChange(Math.min(3.0, parseFloat((value + 0.01).toFixed(2))));
+          }
+          if (e.key === 'Home') {
+            e.preventDefault();
+            onChange(1.0);
+          }
         }}
         aria-label={`Price multiplier: ${value.toFixed(2)}x`}
-        className="w-full slider"
+        className="w-full"
       />
 
-      <div className="flex justify-between text-xs text-slate-500">
+      <div className="flex justify-between text-xs text-warm-gray">
         <span>0.1x</span>
         <span>1x</span>
         <span>3x</span>
       </div>
 
-      <div className="text-center border-t border-slate-700 pt-4">
-        <p className="text-xs text-slate-400 mb-1">Simulated PnL</p>
+      <div className="text-center border-t border-sand pt-4">
+        <p className="text-xs text-warm-gray mb-1">Simulated PnL</p>
         <span
           className={`text-lg font-semibold ${
-            pnl > 0 ? 'text-[#22c55e]' : pnl < 0 ? 'text-[#ef4444]' : 'text-slate-400'
+            pnl > 0 ? 'text-green-700' : pnl < 0 ? 'text-red-600' : 'text-warm-gray'
           }`}
         >
           {pnl === 0 ? '±0' : (pnl > 0 ? '+' : '') + pnl.toFixed(6)}

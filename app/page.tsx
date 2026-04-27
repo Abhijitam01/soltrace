@@ -26,19 +26,19 @@ async function RecentFeed() {
 
   return (
     <section className="mt-12">
-      <h2 className="text-lg font-semibold text-slate-300 mb-4">Recent community analyses</h2>
-      <ul className="space-y-2">
+      <h2 className="text-sm font-semibold text-charcoal mb-3">Recent analyses</h2>
+      <ul className="space-y-1.5">
         {analyses.map((a) => (
           <li key={a.sig}>
             <Link
               href={`/simulate?sig=${a.sig}`}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg border border-sand hover:border-mid-warm hover:bg-light-sand transition-colors"
             >
-              <span className="font-mono text-xs text-slate-400 truncate flex-1">
-                {a.sig.slice(0, 8)}...{a.sig.slice(-8)}
+              <span className="font-mono text-xs text-warm-gray truncate w-32 shrink-0">
+                {a.sig.slice(0, 8)}…{a.sig.slice(-8)}
               </span>
-              <span className="text-sm text-slate-300 truncate max-w-xs">{a.summary}</span>
-              <span className="text-xs text-slate-500 shrink-0">
+              <span className="text-sm text-charcoal truncate flex-1">{a.summary}</span>
+              <span className="text-xs text-warm-gray shrink-0">
                 {new Date(a.decoded_at * 1000).toLocaleDateString()}
               </span>
             </Link>
@@ -57,25 +57,25 @@ export default function HomePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="text-center mb-10">
-        <h1 className="text-2xl font-semibold text-white mb-3">
+    <div className="max-w-xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-semibold text-warm-black mb-3 tracking-tight">
           Decode any Solana transaction
         </h1>
-        <p className="text-slate-400 text-sm">
-          Paste a signature to see account changes, then drag the price slider to replay at a different rate.
+        <p className="text-warm-gray text-base leading-relaxed">
+          Paste a signature to see account changes, AI analysis, and what-if price scenarios.
         </p>
       </div>
 
       <SignatureInputForm action={handleDecode} />
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        <span className="text-sm text-slate-500">Try an example:</span>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <span className="text-sm text-warm-gray">Try:</span>
         {DEMO_TXS.map((demo) => (
           <Link
             key={demo.sig}
             href={`/simulate?sig=${demo.sig}`}
-            className="text-sm text-[#9945FF] hover:text-[#b066ff] underline underline-offset-2"
+            className="text-sm text-accent hover:text-accent-hover underline underline-offset-2 transition-colors"
           >
             {demo.label}
           </Link>

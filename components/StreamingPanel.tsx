@@ -64,8 +64,8 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
 
   if (!decodedTx && !isLoading) {
     return (
-      <div className="flex items-center justify-center h-48 rounded-lg border border-slate-700 bg-slate-800/50">
-        <p className="text-slate-500 text-sm">Decode a transaction to see the AI analysis</p>
+      <div className="flex items-center justify-center h-48 rounded-lg border border-sand bg-cream">
+        <p className="text-warm-gray text-sm">Decode a transaction to see the AI analysis</p>
       </div>
     );
   }
@@ -73,12 +73,12 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
   return (
     <div
       aria-live="polite"
-      className="rounded-lg border border-slate-700 bg-slate-800/50 p-4 overflow-y-auto max-h-[60vh]"
+      className="rounded-lg border border-sand bg-cream p-4 overflow-y-auto max-h-[60vh]"
     >
-      {(isLoading) && (
+      {isLoading && (
         <div className="mb-3">
-          <span className="text-xs text-slate-500 animate-pulse">
-            {sliderActive ? 'Updating analysis...' : 'Analyzing...'}
+          <span className="text-xs text-warm-gray animate-pulse">
+            {sliderActive ? 'Updating analysis…' : 'Analyzing…'}
           </span>
         </div>
       )}
@@ -90,14 +90,16 @@ export function StreamingPanel({ decodedTx, sliderActive }: StreamingPanelProps)
       )}
 
       {summary ? (
-        <p className="text-slate-300 text-sm leading-relaxed">{summary}</p>
+        <p className="text-charcoal text-sm leading-relaxed">{summary}</p>
       ) : analysisError ? (
-        <p className="text-slate-500 text-sm">Analysis unavailable — check your API key configuration.</p>
+        <p className="text-warm-gray text-sm">
+          Analysis unavailable — check your API key configuration.
+        </p>
       ) : isLoading ? (
         <div className="space-y-2">
-          <div className="h-3 bg-slate-700/50 rounded animate-pulse w-full" />
-          <div className="h-3 bg-slate-700/50 rounded animate-pulse w-5/6" />
-          <div className="h-3 bg-slate-700/50 rounded animate-pulse w-4/6" />
+          <div className="h-3 bg-light-sand rounded animate-pulse w-full" />
+          <div className="h-3 bg-light-sand rounded animate-pulse w-5/6" />
+          <div className="h-3 bg-light-sand rounded animate-pulse w-4/6" />
         </div>
       ) : null}
     </div>

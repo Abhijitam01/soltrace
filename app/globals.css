@@ -3,20 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --bg-dark: #0f172a;
-  --solana-purple: #9945FF;
+  --cream: #fffefb;
+  --accent: #ff4f00;
+  --sand: #c5c0b1;
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: #f8fafc;
-  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--cream);
+  color: #201515;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom slider thumb */
-input[type='range']::-webkit-slider-thumb {
-  background-color: var(--solana-purple);
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #eceae3;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
 }
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  border: 2px solid #fffefb;
+  box-shadow: 0 0 0 1px var(--accent);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 3px rgba(255, 79, 0, 0.15);
+}
+
 input[type='range']::-moz-range-thumb {
-  background-color: var(--solana-purple);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  border: 2px solid #fffefb;
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-track {
+  height: 4px;
+  background: #eceae3;
+  border-radius: 2px;
 }

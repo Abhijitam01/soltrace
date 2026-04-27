@@ -8,7 +8,7 @@ interface AccountDiffTableProps {
 
 function truncateAddress(addr: string, chars = 4): string {
   if (addr.length <= chars * 2 + 3) return addr;
-  return `${addr.slice(0, chars)}...${addr.slice(-chars)}`;
+  return `${addr.slice(0, chars)}…${addr.slice(-chars)}`;
 }
 
 function formatDelta(delta: number): string {
@@ -19,13 +19,19 @@ function formatDelta(delta: number): string {
 
 export function AccountDiffTable({ diffs, isLoading }: AccountDiffTableProps) {
   return (
-    <div className="overflow-y-auto max-h-96 rounded-lg border border-slate-700 bg-slate-800/50">
+    <div className="overflow-y-auto max-h-96 rounded-lg border border-sand bg-cream">
       <table className="w-full text-sm">
-        <thead className="sticky top-0 bg-slate-800 border-b border-slate-700">
+        <thead className="sticky top-0 bg-light-sand border-b border-sand">
           <tr>
-            <th scope="col" className="text-left py-2 px-3 text-slate-400 font-medium">Address</th>
-            <th scope="col" className="text-left py-2 px-3 text-slate-400 font-medium">Token</th>
-            <th scope="col" className="text-right py-2 px-3 text-slate-400 font-medium">Delta</th>
+            <th scope="col" className="text-left py-2 px-3 text-warm-gray font-medium text-xs">
+              Address
+            </th>
+            <th scope="col" className="text-left py-2 px-3 text-warm-gray font-medium text-xs">
+              Token
+            </th>
+            <th scope="col" className="text-right py-2 px-3 text-warm-gray font-medium text-xs">
+              Delta
+            </th>
           </tr>
         </thead>
         {isLoading ? (
@@ -34,30 +40,28 @@ export function AccountDiffTable({ diffs, isLoading }: AccountDiffTableProps) {
           <tbody>
             {diffs && diffs.length > 0 ? (
               diffs.map((diff, i) => (
-                <tr key={i} className="border-b border-slate-700/50 hover:bg-slate-700/30">
+                <tr
+                  key={i}
+                  className="border-b border-sand/60 hover:bg-light-sand transition-colors"
+                >
                   <td className="py-2 px-3">
-                    <span
-                      className="font-mono text-slate-300"
-                      title={diff.owner}
-                    >
+                    <span className="font-mono text-charcoal" title={diff.owner}>
                       {truncateAddress(diff.owner, 4)}
                     </span>
                   </td>
                   <td className="py-2 px-3">
-                    <span className="text-slate-400">
-                      {diff.mint === 'SOL'
-                        ? 'SOL'
-                        : truncateAddress(diff.mint, 4)}
+                    <span className="text-warm-gray">
+                      {diff.mint === 'SOL' ? 'SOL' : truncateAddress(diff.mint, 4)}
                     </span>
                   </td>
                   <td className="py-2 px-3 text-right font-mono">
                     <span
                       className={
                         diff.delta > 0
-                          ? 'text-green-500'
+                          ? 'text-green-700'
                           : diff.delta < 0
-                          ? 'text-red-500'
-                          : 'text-slate-400'
+                          ? 'text-red-600'
+                          : 'text-warm-gray'
                       }
                     >
                       {formatDelta(diff.delta)}
@@ -67,7 +71,7 @@ export function AccountDiffTable({ diffs, isLoading }: AccountDiffTableProps) {
               ))
             ) : (
               <tr>
-                <td colSpan={3} className="py-8 text-center text-slate-500">
+                <td colSpan={3} className="py-8 text-center text-warm-gray text-sm">
                   No account changes
                 </td>
               </tr>

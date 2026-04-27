@@ -24,7 +24,6 @@ export default function CopilotPage() {
     setIsLoading(true);
 
     try {
-      // Send to a lightweight client-side parse endpoint
       const res = await fetch('/api/decode', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,25 +50,25 @@ export default function CopilotPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-2">Copilot Mode</h1>
-        <p className="text-slate-400 text-sm">
+        <h1 className="text-3xl font-semibold text-warm-black mb-2 tracking-tight">Copilot</h1>
+        <p className="text-warm-gray text-base">
           Analyze a transaction before signing. Paste the base64-encoded raw transaction bytes.
         </p>
-        <p className="mt-2 text-xs text-slate-500">
+        <p className="mt-2 text-sm text-warm-gray">
           Using the{' '}
           <a
             href="https://github.com/Abhijitam01/soltrace/tree/master/extension"
-            className="text-[#9945FF] hover:underline"
+            className="text-accent hover:text-accent-hover underline underline-offset-2 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
             Wallet Copilot extension
           </a>
-          {' '}? It captures the raw transaction automatically — no copy-paste needed.
+          ? It captures the raw transaction automatically — no copy-paste needed.
         </p>
       </div>
 
-      <form onSubmit={handleAnalyze} className="mb-6">
+      <form onSubmit={handleAnalyze} className="mb-8">
         <textarea
           value={rawTx}
           onChange={(e) => {
@@ -78,40 +77,42 @@ export default function CopilotPage() {
           }}
           placeholder="Paste base64-encoded raw transaction..."
           rows={4}
-          className="w-full font-mono text-xs bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9945FF] focus:ring-1 focus:ring-[#9945FF] resize-none"
+          className="w-full font-mono text-xs bg-cream border border-sand rounded-lg px-4 py-3 text-warm-black placeholder-warm-gray focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent resize-none transition-colors"
           aria-label="Raw transaction (base64)"
         />
         {error && (
-          <p className="mt-2 text-sm text-red-400" role="alert">
+          <p className="mt-2 text-sm text-red-600" role="alert">
             {error}
           </p>
         )}
         <button
           type="submit"
           disabled={isLoading}
-          className="mt-3 px-6 py-2.5 bg-[#9945FF] hover:bg-[#8035ee] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
+          className="mt-3 px-5 py-2.5 bg-accent hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
         >
-          {isLoading ? 'Analyzing...' : 'Analyze before signing'}
+          {isLoading ? 'Analyzing…' : 'Analyze before signing'}
         </button>
       </form>
 
       {(decodedTx || isLoading) && (
-        <div className="space-y-4">
+        <div className="space-y-5">
           {decodedTx && (
-            <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700">
+            <div className="flex items-center gap-3 px-4 py-3 rounded-lg border border-sand bg-light-sand">
               <RiskBadge score={decodedTx.riskScore} />
-              <span className="text-sm text-slate-300">{decodedTx.summary}</span>
+              <span className="text-sm text-charcoal">{decodedTx.summary}</span>
             </div>
           )}
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col lg:flex-row gap-5">
             <div className="lg:w-1/2">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-warm-gray mb-2">
                 Account Changes
               </h2>
               <AccountDiffTable diffs={diffs} isLoading={isLoading} />
             </div>
             <div className="lg:w-1/2">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">AI Analysis</h2>
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-warm-gray mb-2">
+                AI Analysis
+              </h2>
               <StreamingPanel decodedTx={decodedTx} />
             </div>
           </div>

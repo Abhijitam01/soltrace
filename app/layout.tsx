@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'SolTrace — Solana Transaction Decoder',
@@ -20,34 +23,52 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-slate-950 text-slate-100 antialiased">
-        <nav aria-label="Main navigation" className="flex items-center justify-between px-6 py-4 border-b border-slate-800 max-w-7xl mx-auto">
-          <a href="/" className="text-lg font-bold tracking-tight text-white hover:text-[#9945FF] transition-colors">
-            SolTrace
-          </a>
-          <div className="flex items-center gap-6">
-            <Link href="/" className="text-sm text-slate-400 hover:text-slate-200 transition-colors">
-              Analyze
-            </Link>
-            <Link href="/copilot" className="text-sm text-slate-400 hover:text-slate-200 transition-colors">
-              Copilot
-            </Link>
-          </div>
-        </nav>
-        <main className="container mx-auto px-4 py-8 max-w-7xl">
+    <html lang="en" className={inter.variable}>
+      <body className="min-h-screen bg-cream text-warm-black antialiased">
+        <header className="sticky top-0 z-10 bg-cream border-b border-sand">
+          <nav
+            aria-label="Main navigation"
+            className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto"
+          >
+            <a
+              href="/"
+              className="text-base font-semibold tracking-tight text-warm-black hover:text-accent transition-colors"
+            >
+              SolTrace
+            </a>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/"
+                className="text-sm text-warm-gray hover:text-warm-black transition-colors"
+              >
+                Analyze
+              </Link>
+              <Link
+                href="/copilot"
+                className="text-sm text-warm-gray hover:text-warm-black transition-colors"
+              >
+                Copilot
+              </Link>
+            </div>
+          </nav>
+        </header>
+
+        <main className="max-w-5xl mx-auto px-6 py-10">
           {children}
         </main>
-        <footer className="border-t border-slate-800 mt-16 py-6">
-          <div className="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs text-slate-500">
+
+        <footer className="border-t border-sand mt-16 py-6">
+          <div className="max-w-5xl mx-auto px-6 flex items-center justify-between text-xs text-warm-gray">
             <span>SolTrace — open source Solana transaction decoder</span>
             <div className="flex items-center gap-4">
-              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
+              <Link href="/privacy" className="hover:text-warm-black transition-colors">
+                Privacy
+              </Link>
               <a
                 href="https://github.com/Abhijitam01/soltrace"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-slate-300 transition-colors"
+                className="hover:text-warm-black transition-colors"
               >
                 GitHub
               </a>

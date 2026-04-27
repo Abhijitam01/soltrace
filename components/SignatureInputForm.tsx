@@ -8,9 +8,9 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="px-6 py-3 bg-[#9945FF] hover:bg-[#8035ee] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
+      className="px-5 py-3 bg-accent hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors shrink-0"
     >
-      {pending ? 'Decoding...' : 'Decode'}
+      {pending ? 'Decoding…' : 'Decode'}
     </button>
   );
 }
@@ -26,8 +26,8 @@ export function SignatureInputForm({ action }: SignatureInputFormProps) {
         <input
           type="text"
           name="sig"
-          placeholder="Paste a Solana transaction signature..."
-          className="flex-1 font-mono text-sm bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9945FF] focus:ring-1 focus:ring-[#9945FF]"
+          placeholder="Paste a Solana transaction signature…"
+          className="flex-1 font-mono text-sm bg-cream border border-sand rounded-lg px-4 py-3 text-warm-black placeholder-warm-gray focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
           aria-label="Transaction signature"
           autoComplete="off"
           spellCheck={false}
