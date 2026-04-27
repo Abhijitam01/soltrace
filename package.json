@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "extension:build": "tsc -p extension/tsconfig.json"
+    "extension:build": "tsc -p extension/tsconfig.json",
+    "extension:package": "cd extension && zip -r ../soltrace-wallet-copilot.zip dist/ manifest.json icons/"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.0",
