@@ -36,13 +36,19 @@ export function middleware(request: NextRequest) {
         status: 429,
         headers: {
           'Retry-After': String(Math.ceil((entry.windowStart + WINDOW_MS - now) / 1000)),
+          'X-RateLimit-Limit': String(limit),
+          'X-RateLimit-Remaining': '0',
         },
       }
     );
   }
 
   entry.count++;
-  return NextResponse.next();
+  const remaining = limit - entry.count;
+  const next = NextResponse.next();
+  next.headers.set('X-RateLimit-Limit', String(limit));
+  next.headers.set('X-RateLimit-Remaining', String(remaining));
+  return next;
 }
 
 export const config = {
