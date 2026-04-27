@@ -55,6 +55,18 @@ export default function CopilotPage() {
         <p className="text-slate-400 text-sm">
           Analyze a transaction before signing. Paste the base64-encoded raw transaction bytes.
         </p>
+        <p className="mt-2 text-xs text-slate-500">
+          Using the{' '}
+          <a
+            href="https://github.com/Abhijitam01/soltrace/tree/master/extension"
+            className="text-[#9945FF] hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wallet Copilot extension
+          </a>
+          {' '}? It captures the raw transaction automatically — no copy-paste needed.
+        </p>
       </div>
 
       <form onSubmit={handleAnalyze} className="mb-6">
