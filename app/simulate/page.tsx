@@ -85,6 +85,11 @@ export default function SimulatePage() {
               Multi-pool aggregator — price simulation unavailable
             </p>
           )}
+          {data?.ammType === 'clmm' && (
+            <p className="mt-2 text-xs text-amber-500/80">
+              Concentrated liquidity — price simulation unavailable
+            </p>
+          )}
         </div>
 
         {showSlider && (
