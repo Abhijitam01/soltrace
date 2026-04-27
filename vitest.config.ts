@@ -7,7 +7,7 @@ export default defineConfig({
     environmentMatchGlobs: [
       ['tests/lib/hooks.test.ts', 'jsdom'],
     ],
-    include: ['tests/lib/**/*.test.ts'],
+    include: ['tests/lib/**/*.test.ts', 'tests/api/**/*.test.ts'],
     globals: false,
   },
   resolve: {
