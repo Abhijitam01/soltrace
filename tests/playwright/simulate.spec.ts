@@ -42,6 +42,32 @@ test.describe('SolTrace simulate page', () => {
     await expect(page.getByRole('button', { name: 'Analyze before signing' })).toBeVisible();
   });
 
+  test('copilot: paste base64 tx → RiskBadge + diffs appear', async ({ page }) => {
+    await page.route('**/api/decode', async route => {
+      if (route.request().method() === 'POST') {
+        await route.fulfill({
+          contentType: 'application/json',
+          body: JSON.stringify({
+            signature: 'mock',
+            ammType: 'constant-product',
+            diffs: [{ owner: 'Abc123XYZ456', mint: 'SOL', delta: -0.5 }],
+            riskScore: 30,
+            summary: 'SOL transfer',
+            blockTime: null,
+          }),
+        });
+      } else {
+        await route.continue();
+      }
+    });
+
+    await page.goto('/copilot');
+    await page.fill('textarea', 'AAAA');
+    await page.click('button[type="submit"]');
+    await expect(page.getByText('SOL').first()).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText('-0.5')).toBeVisible();
+  });
+
   test('ping endpoint returns 200', async ({ request }) => {
     const res = await request.get('/api/ping');
     expect(res.status()).toBe(200);
