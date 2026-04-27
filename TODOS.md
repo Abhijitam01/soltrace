@@ -79,3 +79,13 @@
 ---
 
 ## Completed
+
+### Demo transactions — document before recording demo video
+
+Completed — `DEMOS.md` created with three real confirmed mainnet signatures: a Raydium AMM v4 swap, a Jupiter v6 route, and an Orca Whirlpool swap.
+
+---
+
+### `/copilot` route — design the base64 tx input page
+
+Completed — `app/copilot/page.tsx` built and live at `/copilot`. Accepts base64-encoded unsigned transaction bytes, calls `POST /api/decode`, and renders RiskBadge + AccountDiffTable + StreamingPanel. The Chrome extension uses the same `POST /api/decode` endpoint.
