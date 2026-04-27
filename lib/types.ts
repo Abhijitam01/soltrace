@@ -1,5 +1,7 @@
 export type AmmType = 'constant-product' | 'clmm' | 'aggregator' | 'unknown';
 
+export type ApiErrorCode = 'BAD_REQUEST' | 'INVALID_SIG' | 'NOT_FOUND' | 'RPC_FAIL' | 'RATE_LIMITED' | 'UNKNOWN';
+
 export interface AccountDiff {
   owner: string;
   mint: string;
